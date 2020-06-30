@@ -1,8 +1,8 @@
 package thread.racer;
 
 public class Counter {
+    private static final int MAX_BOUND = 100;
     private int count;
-    private final int MAX_NUMBER = 100;
 
     public void incrementNumber() {
         count++;
@@ -13,6 +13,6 @@ public class Counter {
     }
 
     public int getMax() {
-        return MAX_NUMBER;
+        return MAX_BOUND;
     }
 }
