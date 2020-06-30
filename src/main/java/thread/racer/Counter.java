@@ -2,7 +2,7 @@ package thread.racer;
 
 public class Counter {
     private int count;
-    private int maxNumber = 100;
+    private final int MAX_NUMBER = 100;
 
     public void incrementNumber() {
         count++;
@@ -13,6 +13,6 @@ public class Counter {
     }
 
     public int getMax() {
-        return maxNumber;
+        return MAX_NUMBER;
     }
 }

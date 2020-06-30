@@ -13,7 +13,7 @@ public class ThreadClass extends Thread {
     public void run() {
         while (counter.getCount() < counter.getMax()) {
             System.out.println("Thread class is running: " + counter.getCount());
-            LOGGER.info("Runnable class is running: " + counter.getCount());
+            LOGGER.info("Thread class is running: " + counter.getCount());
             counter.incrementNumber();
         }
     }
