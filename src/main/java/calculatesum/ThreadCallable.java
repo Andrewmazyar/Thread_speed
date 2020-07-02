@@ -15,7 +15,6 @@ public class ThreadCallable implements Callable<Integer> {
         Integer sum = listInt
                 .stream()
                 .reduce(0, Integer::sum);
-        System.out.println("number is -> " + sum);
         return sum;
     }
 }

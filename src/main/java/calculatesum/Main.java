@@ -19,19 +19,17 @@ public class Main {
             threadCallables.add(new ThreadCallable(integerList.subList(i, i + 250_000)));
         }
         ExecutorService executorService = Executors.newFixedThreadPool(4);
-        List<Future<Integer>> futuresExecutor = executorService.invokeAll(threadCallables);
-        ForkJoinPool forkJoinPool = new ForkJoinPool(4);
-        List<Future<Integer>> futuresJoin = forkJoinPool.invokeAll(threadCallables);
-        int resultExecutor = futuresExecutor.get(0).get()
-                + futuresExecutor.get(1).get()
-                + futuresExecutor.get(2).get()
-                + futuresExecutor.get(3).get();
+        int resultExecutor = 0;
+        for (Future<Integer> integerFuture : executorService.invokeAll(threadCallables)) {
+            resultExecutor += integerFuture.get();
+        }
         System.out.println("Executor sum: " + resultExecutor);
         System.out.println("-----------------------------------------------");
-        int resultJoin = futuresJoin.get(0).get()
-                + futuresJoin.get(1).get()
-                + futuresJoin.get(2).get()
-                + futuresJoin.get(3).get();
+        ForkJoinPool forkJoinPool = new ForkJoinPool(4);
+        int resultJoin = 0;
+        for (Future<Integer> integerFuture : forkJoinPool.invokeAll(threadCallables)) {
+            resultJoin += integerFuture.get();
+        }
         System.out.println("Join sum: " + resultJoin);
     }
 }
