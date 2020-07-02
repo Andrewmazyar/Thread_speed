@@ -22,13 +22,13 @@ public class Main {
         List<Future<Integer>> futuresExecutor = executorService.invokeAll(threadCallables);
         ForkJoinPool forkJoinPool = new ForkJoinPool(4);
         List<Future<Integer>> futuresJoin = forkJoinPool.invokeAll(threadCallables);
-        int resultExecutor  = futuresExecutor.get(0).get()
+        int resultExecutor = futuresExecutor.get(0).get()
                 + futuresExecutor.get(1).get()
                 + futuresExecutor.get(2).get()
                 + futuresExecutor.get(3).get();
         System.out.println("Executor sum: " + resultExecutor);
         System.out.println("-----------------------------------------------");
-        int resultJoin  = futuresJoin.get(0).get()
+        int resultJoin = futuresJoin.get(0).get()
                 + futuresJoin.get(1).get()
                 + futuresJoin.get(2).get()
                 + futuresJoin.get(3).get();
