@@ -12,9 +12,8 @@ public class ThreadCallable implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        Integer sum = listInt
+        return listInt
                 .stream()
                 .reduce(0, Integer::sum);
-        return sum;
     }
 }
