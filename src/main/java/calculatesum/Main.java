@@ -23,13 +23,13 @@ public class Main {
         for (Future<Integer> integerFuture : executorService.invokeAll(threadCallables)) {
             resultExecutor += integerFuture.get();
         }
-        System.out.println("Executor sum: " + resultExecutor);
+        System.out.println("Executor Service sum: " + resultExecutor);
         System.out.println("-----------------------------------------------");
         ForkJoinPool forkJoinPool = new ForkJoinPool(4);
         int resultJoin = 0;
         for (Future<Integer> integerFuture : forkJoinPool.invokeAll(threadCallables)) {
             resultJoin += integerFuture.get();
         }
-        System.out.println("Join sum: " + resultJoin);
+        System.out.println("Fork Join Pull sum: " + resultJoin);
     }
 }
