@@ -9,6 +9,8 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 
 public class Main {
+    private static final int THREADS = 4;
+
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         List<Integer> integerList = new ArrayList<>();
         for (int i = 0; i < 1_000_000; i++) {
@@ -18,14 +20,14 @@ public class Main {
         for (int i = 0; i < 1_000_000; i = i + 250_000) {
             threadCallables.add(new ThreadCallable(integerList.subList(i, i + 250_000)));
         }
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
         int resultExecutor = 0;
         for (Future<Integer> integerFuture : executorService.invokeAll(threadCallables)) {
             resultExecutor += integerFuture.get();
         }
         System.out.println("Executor Service sum: " + resultExecutor);
         System.out.println("-----------------------------------------------");
-        ForkJoinPool forkJoinPool = new ForkJoinPool(4);
+        ForkJoinPool forkJoinPool = new ForkJoinPool(THREADS);
         int resultJoin = 0;
         for (Future<Integer> integerFuture : forkJoinPool.invokeAll(threadCallables)) {
             resultJoin += integerFuture.get();
