@@ -13,10 +13,21 @@ public class Main {
         for (int i = 0; i < 1_000_000; i++) {
             integerList.add((int) (Math.random() * 10));
         }
-        ThreadCallable threadCallable = new ThreadCallable(integerList);
+        List<ThreadCallable> threadCallables = new ArrayList<>();
+        for (int i = 0; i < 1_000_000; i = i + 250_000) {
+            threadCallables.add( new ThreadCallable(integerList.subList(i, i + 250_000)));
+        }
         ExecutorService executorService = Executors.newFixedThreadPool(4);
-        List<Future<Integer>> futuresExecutor = executorService.invokeAll(List.of(threadCallable));
+        List<Future<Integer>> futuresExecutor = executorService
+                .invokeAll(List.of(threadCallables.get(0),
+                        threadCallables.get(1),
+                        threadCallables.get(2),
+                        threadCallables.get(3)));
         ForkJoinPool forkJoinPool = new ForkJoinPool(4);
-        List<Future<Integer>> futuresJoin = forkJoinPool.invokeAll(List.of(threadCallable));
+        List<Future<Integer>> futuresJoin = forkJoinPool
+                .invokeAll(List.of(threadCallables.get(0),
+                        threadCallables.get(1),
+                        threadCallables.get(2),
+                        threadCallables.get(3)));
     }
 }
